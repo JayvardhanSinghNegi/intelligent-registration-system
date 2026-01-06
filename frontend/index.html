@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intelligent Registration System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Registration Form</h2>
+
+    <form id="registrationForm">
+
+        <div class="form-grid">
+
+            <!-- LEFT COLUMN -->
+            <div class="column">
+
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName">
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName">
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email">
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age">
+                </div>
+
+                <div class="form-group">
+                    <label>Gender *</label>
+                    <div class="gender-group">
+                        <label>
+                            <input type="radio" name="gender" value="Male">
+                            Male
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Female">
+                            Female
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Other">
+                            Other
+                        </label>
+                    </div>
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address"></textarea>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="column">
+
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="text" id="phone">
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country *</label>
+                    <select id="country">
+                        <option value="">Select Country</option>
+                        <option value="India">India</option>
+                        <option value="USA">USA</option>
+                    </select>
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <select id="city"></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input type="password" id="password">
+                    <div id="strength"></div>
+                    <small class="error"></small>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password *</label>
+                    <input type="password" id="confirmPassword">
+                    <small class="error"></small>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="form-footer">
+            <label class="terms-label">
+                <input type="checkbox" id="terms">
+                <span>I agree to the Terms & Conditions *</span>
+            </label>
+
+            <div id="formMessage"></div>
+
+            <button type="submit" id="submitBtn" disabled>Register</button>
+        </div>
+
+    </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
