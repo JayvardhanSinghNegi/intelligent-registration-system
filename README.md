@@ -2,7 +2,6 @@
 
 ## Assignment Overview
 
-This project was created as part of a **placement assignment**.  
 The task was to build a registration system, apply validations, and automate its testing using Selenium.
 
 ---
