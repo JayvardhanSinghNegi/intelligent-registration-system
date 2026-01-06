@@ -5,20 +5,16 @@ from selenium.webdriver.chrome.service import Service
 import time
 import os
 
-# ------------------ SETUP ------------------
-
-# Create screenshots folder (works locally + CI)
 SCREENSHOT_DIR = "automation/screenshots"
 os.makedirs(SCREENSHOT_DIR, exist_ok=True)
 
 chrome_options = Options()
-chrome_options.add_argument("--headless=new")          # REQUIRED for CI
+chrome_options.add_argument("--headless=new")          
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--window-size=1920,1080")
 
-# Explicit paths for Docker / CI
 chrome_options.binary_location = "/usr/bin/chromium"
 service = Service("/usr/bin/chromedriver")
 
