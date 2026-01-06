@@ -1,29 +1,41 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 import time
 import os
 
-# Setup
-options = webdriver.ChromeOptions()
-options.add_argument("--start-maximized")
+# ------------------ SETUP ------------------
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+# Create screenshots folder (works locally + CI)
+SCREENSHOT_DIR = "automation/screenshots"
+os.makedirs(SCREENSHOT_DIR, exist_ok=True)
 
-# Create screenshots folder if not exists
-if not os.path.exists("../screenshots"):
-    os.makedirs("../screenshots")
+chrome_options = Options()
+chrome_options.add_argument("--headless=new")          # REQUIRED for CI
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--window-size=1920,1080")
+
+# Explicit paths for Docker / CI
+chrome_options.binary_location = "/usr/bin/chromium"
+service = Service("/usr/bin/chromedriver")
+
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
 try:
-    # Open the registration page
-    driver.get("file:///Users/jayvardhansinghnegi/Desktop/intelligent-registration-system/frontend/index.html")
+    # ------------------ OPEN PAGE ------------------
+
+    driver.get("file:///app/frontend/index.html")
 
     print("Page URL:", driver.current_url)
     print("Page Title:", driver.title)
 
-    # -------- NEGATIVE SCENARIO --------
+    time.sleep(2)
+
+    # ------------------ NEGATIVE SCENARIO ------------------
+
     driver.find_element(By.ID, "firstName").send_keys("Jay")
     driver.find_element(By.ID, "email").send_keys("jay@test.com")
     driver.find_element(By.ID, "phone").send_keys("9876543210")
@@ -32,9 +44,10 @@ try:
     driver.find_element(By.ID, "submitBtn").click()
     time.sleep(2)
 
-    driver.save_screenshot("../screenshots/error-state.png")
+    driver.save_screenshot(f"{SCREENSHOT_DIR}/error-state.png")
 
-    # -------- POSITIVE SCENARIO --------
+    # ------------------ POSITIVE SCENARIO ------------------
+
     driver.find_element(By.ID, "lastName").send_keys("Negi")
 
     driver.find_element(By.ID, "country").send_keys("India")
@@ -52,13 +65,13 @@ try:
     driver.find_element(By.ID, "submitBtn").click()
     time.sleep(2)
 
-    driver.save_screenshot("../screenshots/success-state.png")
+    driver.save_screenshot(f"{SCREENSHOT_DIR}/success-state.png")
 
     print("Automation executed successfully")
 
 except Exception as e:
     print("Error occurred:", e)
+    driver.save_screenshot(f"{SCREENSHOT_DIR}/failure.png")
 
 finally:
-    time.sleep(2)
     driver.quit()
